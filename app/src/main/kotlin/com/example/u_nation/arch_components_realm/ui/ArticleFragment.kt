@@ -18,11 +18,10 @@ import kotlin.properties.Delegates
 
 class ArticleFragment : LifecycleFragment() {
     private var adapter: ArticleAdapter by Delegates.notNull<ArticleAdapter>()
-    private var mainViewModel: MainViewModel by Delegates.notNull()
+    private val mainViewModel by lazy { ViewModelProviders.of(activity).get<MainViewModel>() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.article_recycler_view, container, false)
-        mainViewModel = ViewModelProviders.of(activity).get<MainViewModel>()
         adapter = ArticleAdapter(
                 onClickArticle = { article -> startActivity(ArticleDetailActivity.createIntent(article, context)) },
                 onLikeButton = { isLike, article -> mainViewModel.bookMarkToggle(isLike, article) }

@@ -20,11 +20,10 @@ import kotlin.properties.Delegates
 class BookMarkFragment : LifecycleFragment() {
 
     private var adapter: BookMarkAdapter by Delegates.notNull()
-    private var mainViewModel: MainViewModel by Delegates.notNull()
+    private val mainViewModel by lazy { ViewModelProviders.of(activity).get<MainViewModel>() }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.article_recycler_view, container, false)
-        mainViewModel = ViewModelProviders.of(activity).get<MainViewModel>()
         adapter = BookMarkAdapter(
                 items = mainViewModel.managedBookMarkList,
                 onClickArticle = { article -> startActivity(ArticleDetailActivity.createIntent(article, context)) },

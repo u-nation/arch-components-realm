@@ -41,8 +41,4 @@ class ArticleDao(val realm: Realm) {
             realm.insert(article)
         }
     }
-
-    fun deleteAll() {
-        realm.executeTransaction { realm -> realm.deleteAll() }
-    }
 }
