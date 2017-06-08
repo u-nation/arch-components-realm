@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="articleBinding"
+            type="com.example.u_nation.arch_components_realm.ui.binding.ArticleBinding" />
+    </data>
+
+    <LinearLayout
+        android:id="@+id/root_row"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@drawable/ripple_tap"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal"
+        android:paddingLeft="@dimen/article_spacing"
+        android:paddingRight="@dimen/article_spacing"
+        android:paddingTop="@dimen/article_spacing">
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="@dimen/thumbnail"
+            android:layout_height="@dimen/thumbnail"
+            android:layout_marginBottom="@dimen/article_spacing"
+            android:contentDescription="@string/image_error"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/article_spacing">
+
+            <FrameLayout
+                android:id="@+id/root_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true">
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:lineSpacingExtra="3dp"
+                    android:lines="2"
+                    android:maxLines="2"
+                    android:text="@{articleBinding.title}"
+                    android:textAllCaps="false"
+                    android:textColor="@color/article_title"
+                    android:textSize="@dimen/text_16sp"
+                    tools:text="1 の記事" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/updated_at"
+                android:textAllCaps="false"
+                android:textColor="@color/grey_600"
+                android:textSize="@dimen/text_12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/article_spacing"
+                android:layout_marginEnd="4dip"
+                android:layout_toStartOf="@+id/like_btn"
+                android:text="@{articleBinding.updated_at}"
+                tools:text="2016/02/21" />
+
+
+            <com.like.LikeButton
+                android:id="@+id/like_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="5dip"
+                app:anim_scale_factor="2"
+                app:circle_end_color="@color/colorAccent"
+                app:circle_start_color="@color/colorAccent"
+                app:dots_primary_color="@color/colorAccent"
+                app:dots_secondary_color="@color/colorAccent"
+                app:icon_size="18dip"
+                app:icon_type="heart"
+                app:like_drawable="@drawable/ic_favorite_pink_100_18dp"
+                app:liked="@{articleBinding.is_bookmarked()}"
+                app:unlike_drawable="@drawable/ic_favorite_border_pink_100_18dp" />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>
