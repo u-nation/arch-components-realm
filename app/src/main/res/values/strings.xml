@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">android-persistence-realm</string>
+    <string name="app_name">arch-components-realm</string>
     <string name="image_error">イメージ</string>
 </resources>

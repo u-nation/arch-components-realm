@@ -17,10 +17,10 @@ class MainViewModel : ViewModel() {
 
     private val realm: Realm = Realm.getDefaultInstance()
     private val articleDao: ArticleDao = ArticleDao(realm)
-    val articleList: MutableList<ArticleBinding> = ArrayList()
-    var managedArticleList: RealmResults<Article> by Delegates.notNull()
-    var managedBookMarkList: RealmResults<Article> by Delegates.notNull()
     val articleLiveData: MutableLiveData<ArticleBinding> = MutableLiveData()
+    val articleList: MutableList<ArticleBinding> = ArrayList()
+    var managedArticleList: RealmResults<Article> = articleDao.selectAll()
+    var managedBookMarkList: RealmResults<Article> = articleDao.selectBookmarks()
 
     /** Realm Fine-Grained Notification */
     private val articleListener: OrderedRealmCollectionChangeListener<RealmResults<Article>> = OrderedRealmCollectionChangeListener { collection, changeSet ->
@@ -40,8 +40,6 @@ class MainViewModel : ViewModel() {
     }
 
     init {
-        managedArticleList = articleDao.selectAll()
-        managedBookMarkList = articleDao.selectBookmarks()
         managedArticleList.addChangeListener(articleListener)
 
         /*Articleオブジェクト初期生成*/
@@ -67,6 +65,7 @@ class MainViewModel : ViewModel() {
     override fun onCleared() {
         managedArticleList.removeChangeListener(articleListener)
         managedBookMarkList.removeAllChangeListeners()
+        articleDao.deleteAll()
         realm.close()
         super.onCleared()
         Timber.i("onCleared")
