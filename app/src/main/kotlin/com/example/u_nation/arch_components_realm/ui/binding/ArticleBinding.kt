@@ -22,7 +22,5 @@ data class ArticleBinding(var article: Article) {
         return this.article.article_id == articleBinding.article.article_id
     }
 
-    override fun hashCode(): Int {
-        return System.nanoTime().toInt()
-    }
+    override fun hashCode(): Int = article.article_id
 }
