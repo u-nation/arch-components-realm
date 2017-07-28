@@ -16,14 +16,14 @@ import io.realm.RealmModel
 import io.realm.RealmQuery
 
 fun <T : ViewDataBinding> Activity.dataBinding(@LayoutRes res: Int): T = DataBindingUtil.setContentView<T>(this, res)
-inline fun <reified T : View> Activity.findById(id: Int): T = findViewById(id) as T
+
 inline fun <reified T : View> View.findById(id: Int): T = findViewById(id) as T
 
 inline fun <reified T : ViewModel> ViewModelProvider.get(): T = this.get(T::class.java)
 
 inline fun <reified T : Activity> Context.intent(): Intent = Intent(this, T::class.java)
 
-inline fun <reified T : RealmModel> Realm.typedWhere(): RealmQuery<T> = where(T::class.java)
+inline fun <reified T : RealmModel> Realm.where(): RealmQuery<T> = where(T::class.java)
 inline fun <reified T : RealmModel> Realm.getAutoIncrementKey(): Int {
     if (where(T::class.java).count() == 0L) return 1
     else return where(T::class.java).max("id").toInt() + 1
@@ -39,3 +39,15 @@ inline fun <reified T : ViewDataBinding> ViewGroup.inflateBinding(): T {
             )
             .invoke(null, LayoutInflater.from(context), this, false) as T
 }
+
+inline fun <reified T : ViewModel> ViewModelProvider.NewInstanceFactory.create(viewModel: ViewModel): T = viewModel as T
+
+
+inline fun <reified T : Activity> Activity.startActivity() {
+    startActivity(Intent(this, T::class.java))
+}
+
+//@Suppress("UNCHECKED_CAST")
+//fun <T : View> Activity.findView(id: Int): T = findViewById(id) as T
+
+inline fun <reified T : View> Activity.findView(id: Int): T = findViewById(id) as T

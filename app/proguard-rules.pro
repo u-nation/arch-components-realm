@@ -24,7 +24,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--dontwarn kotlin.reflect.**
+#-dontwarn kotlin.reflect.**
 -keep class * extends android.databinding.ViewDataBinding {
     public static ** inflate(android.view.LayoutInflater, android.view.ViewGroup, boolean);
 }

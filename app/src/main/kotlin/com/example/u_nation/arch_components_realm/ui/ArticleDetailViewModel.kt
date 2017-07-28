@@ -39,4 +39,7 @@ class ArticleDetailViewModel(private val article: Article) : ViewModel() {
             return ArticleDetailViewModel(article) as T
         }
     }
+
+    inline fun <reified T : ViewModel> ViewModelProvider.NewInstanceFactory.create(viewModel: ViewModel): T = viewModel as T
 }
+

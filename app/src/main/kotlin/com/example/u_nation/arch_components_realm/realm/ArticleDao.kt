@@ -3,15 +3,15 @@ package com.example.u_nation.arch_components_realm.realm
 import com.example.u_nation.arch_components_realm.model.Article
 import com.example.u_nation.arch_components_realm.model.ArticleFields
 import com.example.u_nation.arch_components_realm.util.DateTimeUtil
-import com.example.u_nation.arch_components_realm.util.typedWhere
+import com.example.u_nation.arch_components_realm.util.where
 import io.realm.Realm
 import io.realm.RealmQuery
 import io.realm.RealmResults
 import io.realm.Sort
 
 class ArticleDao(val realm: Realm) {
-    private fun query(): RealmQuery<Article> = realm.typedWhere<Article>()
-    private fun queryAsync(realmAsync: Realm): RealmQuery<Article> = realmAsync.typedWhere<Article>()
+    private fun query(): RealmQuery<Article> = realm.where<Article>()
+    private fun queryAsync(realmAsync: Realm): RealmQuery<Article> = realmAsync.where<Article>()
 
     fun isExist(article_id: Int): Boolean =query().equalTo(ArticleFields.ARTICLE_ID, article_id).count().toInt() == 1
 
